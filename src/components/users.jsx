@@ -1,51 +1,31 @@
-import { tab } from "@testing-library/user-event/dist/tab";
+// import { tab } from "@testing-library/user-event/dist/tab";
 import React, { useState } from "react";
 import api from "../api";
 
 const Users = () => {
-  const usersAPI = api.users.fetchAll();
-  console.log("usersAPI", usersAPI);
+  const users = api.users.fetchAll();
 
-  const [items, setItems] = useState(usersAPI);
   const userRowChangche = (id) => {
     setItems((prevState) => prevState.filter((item) => item._id !== id));
   };
 
-  const [count, setcount] = useState(0);
-  const countContainer = () => {
-    const length = items.length.toString().slice(-1);
-    if (length == 0 && items.length.toString() < 10) {
+  const renderPhrase = () => {
+    const lastOne = items.length.toString().slice(-1);
+    const rowsQuanity = items.length.toString();
+    if (lastOne == 0 && rowsQuanity < 10) {
       return (
         <span className="badge rounded-pill text-bg-danger m-3 counterFont">
           увы, {items.length} человек готовы тусануть с тобой сегодня, ты ни
           кому не нужен
         </span>
       );
-    } else if (length == 0 && items.length.toString() > 10) {
-      return (
-        <span className="badge rounded-pill text-bg-success m-3 counterFont">
-          {items.length} человек тусанёт с тобой сегодня, у тебя нет друзей
-        </span>
-      );
-    } else if (length == 1 && items.length.toString() < 10) {
+    } else if (lastOne == 1 && rowsQuanity < 10) {
       return (
         <span className="badge rounded-pill text-bg-warning m-3 counterFont">
           всего {items.length} человек готов тусануть с тобой сегодня
         </span>
       );
-    } else if (length == 1 && items.length.toString() > 10) {
-      return (
-        <span className="badge rounded-pill text-bg-success m-3 counterFont">
-          {items.length} человек тусанёт с тобой сегодня
-        </span>
-      );
-    } else if (items.length.toString() > 10 && length === "2") {
-      return (
-        <span className="badge rounded-pill text-bg-success m-3 counterFont">
-          {items.length} человек тусанёт с тобой сегодня
-        </span>
-      );
-    } else if (items.length.toString() < 10 && length >= 2 && length <= 4) {
+    } else if (rowsQuanity < 10 && lastOne >= 2 && lastOne <= 4) {
       return (
         <span className="badge rounded-pill text-bg-primary m-3 counterFont">
           {items.length} человека тусанёт с тобой сегодня
@@ -70,14 +50,15 @@ const Users = () => {
     ));
   };
 
-  const [headings, setHeading] = useState([
+  const headings = [
     "Имя",
     "Качества",
     "Профессия",
     "Встретился (раз)",
     "Оценка",
     "Удалить",
-  ]);
+  ];
+
   const renderHeadings = () => {
     return headings.map((heading) => (
       <th scope="col" key={heading}>
@@ -86,6 +67,7 @@ const Users = () => {
     ));
   };
 
+  const [items, setItems] = useState(users);
   const rowUsers = items.map((item, id) => {
     return (
       <tr className="table-active rowUser" key={id}>
@@ -108,10 +90,10 @@ const Users = () => {
 
   return (
     <React.Fragment>
-      {countContainer()}
-      <table className="table table-dark table-striped ">
+      {renderPhrase()}
+      <table className="table table-dark table-striped">
         <thead className="table-dark">
-          <tr className="headingContainer">{renderHeadings()}</tr>
+          <tr className="renderPhrase">{renderHeadings()}</tr>
         </thead>
         <tbody>{rowUsers}</tbody>
       </table>
