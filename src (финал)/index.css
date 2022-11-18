@@ -39,3 +39,7 @@ code {
 .completedMeetings {
   text-align: center !important;
 }
+
+.bookmark-icon {
+  border-width: 0 !important;
+}

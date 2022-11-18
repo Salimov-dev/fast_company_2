@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import api from "./api";
 import Users from "./components/users";
-// import UsersList from "./components/usersList";
 
 const App = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
-  return <Users />;
+
+  return (
+    <React.Fragment>
+      <Users users={users} />
+    </React.Fragment>
+  );
 };
 
 export default App;
