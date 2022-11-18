@@ -4,7 +4,12 @@ import Users from "./components/users";
 
 const App = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
-  return <Users />;
+
+  return (
+    <React.Fragment>
+      <Users users={users} />
+    </React.Fragment>
+  );
 };
 
 export default App;
