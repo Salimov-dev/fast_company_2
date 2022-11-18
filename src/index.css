@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(0, 0, 0) !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.counterFont {
+  font-size: 14px !important;
+  padding: 10px 15px !important;
+}
+
+.renderPhrase {
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.rowUser {
+  line-height: 40px !important;
+  height: 25px !important;
+}
+
+.qualities {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 8px 12px !important;
+}
+
+.completedMeetings {
+  text-align: center !important;
+}
+
+.bookmark-icon {
+  border-width: 0 !important;
+}
