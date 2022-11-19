@@ -7,9 +7,6 @@ import api from "../api";
 
 const Users = (props) => {
   const [items, setItems] = useState(props.users);
-  // console.log(items);
-  // const {items} = props
-
 
   return (
     <React.Fragment>
@@ -21,8 +18,7 @@ const Users = (props) => {
           </tr>
         </thead>
         <tbody>
-          <UsersList items={items} setItems={setItems} />
-          {/* <UsersList items={items}  /> */}
+          <UsersList items={items} setItems={setItems} onDelete={props.onDelete} />
         </tbody>
       </table>
     </React.Fragment>

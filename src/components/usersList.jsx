@@ -1,6 +1,6 @@
 import React from "react";
-import Qualities from "./qualitie";
-import Bookmarks from "./bookmark";
+import Qualitie from "./qualitie";
+import Bookmark from "./bookmark";
 
 const UsersList = (props) => {
   const handleDeleteUser = (id) => {
@@ -9,18 +9,26 @@ const UsersList = (props) => {
   };
 
   return props.items.map((item, id) => {
-
     return (
       <tr className="table-active rowUser" key={item._id}>
         <td>{item.name}</td>
         <td>
-          <Qualities qualities={item.qualities} />
+          {item.qualities.map((qual) => (
+            <Qualitie key={qual._id} {...qual} />
+          ))}
         </td>
+
         <td>{item.profession.name}</td>
         <td className="completedMeetings">{item.completedMeetings}</td>
         <td>{item.rate} /5</td>
         <td>
-          <Bookmarks items={props.items} item={item} bookmark={item.bookmark} id={item._id} setItems={props.setItems} />
+          <Bookmark
+            items={props.items}
+            item={item}
+            bookmark={item.bookmark}
+            id={item._id}
+            setItems={props.setItems}
+          />
         </td>
         <td>
           <button
