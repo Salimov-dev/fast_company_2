@@ -1,25 +1,35 @@
 import React, { useState } from "react";
 import api from "./api";
 import Users from "./components/users";
+import SearchStatus from "./components/searchStatus";
 
 const App = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
 
-  // const handleAddToBookmark = (id) => {
-  //   const elementIndex = users.findIndex((bookmark) => bookmark._id === id);
-  //   const newBookmark = [...users];
+  const handleDeleteUser = (id) => {
+    const newRowsUsers = users.filter((counter) => counter._id !== id);
+    setUsers(newRowsUsers);
+  };
 
-  //   !newBookmark[elementIndex].bookmark
-  //     ? (newBookmark[elementIndex].bookmark = true)
-  //     : (newBookmark[elementIndex].bookmark = false);
-  //   setUsers(newBookmark);
-  // };
+  const handleToggleBookMark = (id) => {
+    const elementIndex = users.findIndex((bookmark) => bookmark._id === id);
+    const newBookmark = [...users];
+
+    !newBookmark[elementIndex].bookmark
+      ? (newBookmark[elementIndex].bookmark = true)
+      : (newBookmark[elementIndex].bookmark = false);
+    setUsers(newBookmark);
+  };
 
   return (
-    <React.Fragment>
-      <Users users={users} />
-      {/* <Users users={users} onToggleBookMark={handleAddToBookmark} /> */}
-    </React.Fragment>
+    <>
+      <SearchStatus length={users.length} />
+      <Users
+        users={users}
+        onDelete={handleDeleteUser}
+        onToggleBookMark={handleToggleBookMark}
+      />
+    </>
   );
 };
 

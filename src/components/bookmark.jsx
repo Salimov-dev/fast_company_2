@@ -1,30 +1,11 @@
 import React, { useState } from "react";
 
-const Bookmark = (props) => {
-  const handleAddToBookmark = (id, bookmark) => {
-    const elementIndex = props.items.findIndex(
-      (bookmark) => bookmark._id === id
-    );
-    const newBookmark = [...props.items];
-
-    !newBookmark[elementIndex].bookmark
-      ? (newBookmark[elementIndex].bookmark = true)
-      : (newBookmark[elementIndex].bookmark = false);
-    props.setItems(newBookmark);
-  };
-
+const BookMark = ({ status, ...rest }) => {
   return (
-    <button className="btn-sm bookmark-icon">
-      <i
-        className={
-          props.item.bookmark === true
-            ? "bi bi-bookmark-star-fill"
-            : "bi bi-bookmark-star"
-        }
-        onClick={() => handleAddToBookmark(props.id, props.bookmark)}
-      ></i>
+    <button className="bookmark-icon" {...rest}>
+      <i className={"bi bi-bookmark" + (status ? "-heart-fill" : "")}></i>
     </button>
   );
 };
 
-export default Bookmark;
+export default BookMark;

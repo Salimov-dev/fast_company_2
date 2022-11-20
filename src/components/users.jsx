@@ -1,27 +1,28 @@
 import React, { useState } from "react";
 import SearchStatus from "./searchStatus";
 import RenderQualities from "./qualitie";
-import UsersList from "./usersList";
+import User from "./user";
 import RenderHeadings from "./headings";
 import api from "../api";
 
-const Users = (props) => {
-  const [items, setItems] = useState(props.users);
-
+const Users = ({ users, ...rest }) => {
   return (
-    <React.Fragment>
-      <SearchStatus items={items} />
-      <table className="table table-dark table-striped">
-        <thead className="table-dark">
-          <tr className="renderPhrase">
-            <RenderHeadings />
-          </tr>
-        </thead>
-        <tbody>
-          <UsersList items={items} setItems={setItems} onDelete={props.onDelete} />
-        </tbody>
-      </table>
-    </React.Fragment>
+    <>
+      {users.length > 0 && (
+        <table className="table table-dark table-striped">
+          <thead className="table-dark">
+            <tr className="renderPhrase">
+              <RenderHeadings />
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <User key={user._id} {...rest} {...user} />
+            ))}
+          </tbody>
+        </table>
+      )}
+    </>
   );
 };
 
