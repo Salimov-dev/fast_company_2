@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import SearchStatus from "./searchStatus";
-import RenderQualities from "./qualitie";
 import User from "./user";
 import RenderHeadings from "./headings";
-import api from "../api";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
+import PropTypes from "prop-types";
 
 const Users = ({ users, ...rest }) => {
     const count = users.length;
@@ -41,6 +39,10 @@ const Users = ({ users, ...rest }) => {
             />
         </>
     );
+};
+
+Users.propTypes = {
+    users: PropTypes.array.isRequired
 };
 
 export default Users;

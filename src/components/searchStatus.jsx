@@ -1,17 +1,18 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const SearchStatus = ({ length }) => {
     const lastOne = length.toString().slice(-1);
     const rowsQuanity = length.toString();
 
-    if (lastOne == 0 && rowsQuanity < 10) {
+    if (lastOne === 0 && rowsQuanity < 10) {
         return (
             <span className="badge rounded-pill text-bg-danger m-3 counterFont">
                 увы, {length} человек готовы тусануть с тобой сегодня, ты ни
                 кому не нужен
             </span>
         );
-    } else if (lastOne == 1 && rowsQuanity < 10) {
+    } else if (lastOne === 1 && rowsQuanity < 10) {
         return (
             <span className="badge rounded-pill text-bg-warning m-3 counterFont">
                 всего {length} человек готов тусануть с тобой сегодня
@@ -29,6 +30,10 @@ const SearchStatus = ({ length }) => {
             {length} человек тусанёт с тобой сегодня
         </span>
     );
+};
+
+SearchStatus.propTypes = {
+    length: PropTypes.number.isRequired
 };
 
 export default SearchStatus;
