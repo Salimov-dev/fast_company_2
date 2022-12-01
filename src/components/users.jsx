@@ -8,8 +8,7 @@ import GroupList from "./groupList";
 import api from "../api";
 import SearchStatus from "./searchStatus";
 
-const Users = ({ users, ...rest }) => {
-    console.log(users);
+const Users = ({ users, idProperty, ...rest }) => {
     const pageSize = 4;
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -70,7 +69,11 @@ const Users = ({ users, ...rest }) => {
                         </thead>
                         <tbody>
                             {userCrop.map((user) => (
-                                <User key={user._id} {...rest} {...user} />
+                                <User
+                                    key={user[idProperty]}
+                                    {...rest}
+                                    {...user}
+                                />
                             ))}
                         </tbody>
                     </table>
@@ -88,9 +91,12 @@ const Users = ({ users, ...rest }) => {
     );
 };
 
+Users.defaultProps = {
+    idProperty: "_id"
+};
+
 Users.propTypes = {
-    // users: PropTypes.array
-    // users: PropTypes.object
+    idProperty: PropTypes.string.isRequired,
     users: PropTypes.array.isRequired
 };
 

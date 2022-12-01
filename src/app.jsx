@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import api from "./api/index";
 import api from "./api";
 import Users from "./components/users";
 
 const App = () => {
     const [users, setUsers] = useState();
-    console.log(Array.isArray(api.users));
 
     useEffect(() => {
         api.users.fetchAll().then((data) => {
             setUsers(Object.assign(data));
         });
-
-        // api.users.fetchAll().then((data) => setUsers(data));
     }, []);
 
     const handleDeleteUser = (id) => {
@@ -37,6 +33,7 @@ const App = () => {
                     users={users}
                     onDelete={handleDeleteUser}
                     onToggleBookMark={handleToggleBookMark}
+                    idProperty="_id"
                 />
             )}
         </>
