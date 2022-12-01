@@ -9,7 +9,8 @@ import api from "../api";
 import SearchStatus from "./searchStatus";
 
 const Users = ({ users, ...rest }) => {
-    const pageSize = 2;
+    console.log(users);
+    const pageSize = 4;
 
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
@@ -28,8 +29,9 @@ const Users = ({ users, ...rest }) => {
     }, [selectedProf]);
 
     const filteredUsers = selectedProf
-        ? users.filter((user) => user.profession === selectedProf)
+        ? users.filter((user) => user.profession._id === selectedProf._id)
         : users;
+
     const count = filteredUsers.length;
     const userCrop = paginate(filteredUsers, currentPage, pageSize);
     const clearFilter = () => {
@@ -87,6 +89,8 @@ const Users = ({ users, ...rest }) => {
 };
 
 Users.propTypes = {
+    // users: PropTypes.array
+    // users: PropTypes.object
     users: PropTypes.array.isRequired
 };
 
