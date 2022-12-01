@@ -83,6 +83,7 @@ const Users = ({ users, idProperty, ...rest }) => {
                         itemsCount={count}
                         pageSize={pageSize}
                         currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                         onPageChange={handlePageChange}
                     />
                 </div>
