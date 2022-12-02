@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import _ from "lodash";
 import PropTypes from "prop-types";
 
@@ -7,15 +7,12 @@ const Pagination = ({
     pageSize,
     onPageChange,
     currentPage,
-    setCurrentPage
+    setCurrentPage,
+    count
 }) => {
     const pageCount = Math.ceil(itemsCount / pageSize);
-    if (pageCount === 1) return setCurrentPage(1);
     const pages = _.range(1, pageCount + 1);
-
-    useEffect(() => {
-        setCurrentPage(pageCount);
-    }, [pageCount]);
+    if (pageCount === 1) return null;
 
     return (
         <nav>
@@ -41,6 +38,7 @@ const Pagination = ({
     );
 };
 Pagination.propTypes = {
+    count: PropTypes.number.isRequired,
     setCurrentPage: PropTypes.func.isRequired,
     itemsCount: PropTypes.number.isRequired,
     pageSize: PropTypes.number.isRequired,

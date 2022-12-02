@@ -9,7 +9,7 @@ import api from "../api";
 import SearchStatus from "./searchStatus";
 
 const Users = ({ users, idProperty, ...rest }) => {
-    const pageSize = 4;
+    const pageSize = 3;
 
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
@@ -36,6 +36,12 @@ const Users = ({ users, idProperty, ...rest }) => {
     const clearFilter = () => {
         setSelectedProf();
     };
+
+    useEffect(() => {
+        if (userCrop.length === 0 && currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    }, [userCrop]);
 
     const handleProfessionSelect = (item) => {
         setSelectedProf(item);
@@ -85,6 +91,7 @@ const Users = ({ users, idProperty, ...rest }) => {
                         currentPage={currentPage}
                         setCurrentPage={setCurrentPage}
                         onPageChange={handlePageChange}
+                        count={count}
                     />
                 </div>
             </div>
