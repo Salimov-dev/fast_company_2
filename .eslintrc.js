@@ -29,6 +29,12 @@ module.exports = {
         // Использование двойных кавычек
         quotes: ["error", "double", { allowTemplateLiterals: true }],
         "react-hooks/rules-of-hooks": "error", // Проверяем правила хуков
-        "react-hooks/exhaustive-deps": "warn" // Проверяем зависимости эффекта
+        "react-hooks/exhaustive-deps": [
+            "warn",
+            {
+                additionalHooks: "(useMyCustomHook|useMyOtherCustomHook)"
+            }
+        ]
+        // "react-hooks/exhaustive-deps": "warn" // Проверяем зависимости эффекта
     }
 };

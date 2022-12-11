@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import Caret from "./caret";
 
 const TableHeader = ({ onSort, selectedSort, columns, data }) => {
+    const [caret, setCaret] = useState(false);
+
     const handleSort = (item) => {
         if (selectedSort.path === item) {
             onSort({
@@ -13,7 +16,13 @@ const TableHeader = ({ onSort, selectedSort, columns, data }) => {
         }
     };
 
-    console.log(selectedSort.order);
+    useEffect(() => {
+        selectedSort.order === "desc" ? setCaret(true) : setCaret(false);
+    }, [selectedSort.order]);
+
+    const checkItem = (item) => {
+        return selectedSort.path;
+    };
 
     return (
         <thead className="table-dark">
@@ -29,25 +38,17 @@ const TableHeader = ({ onSort, selectedSort, columns, data }) => {
                         {...{ role: columns[column].path && "button" }}
                         scope="col"
                     >
-                        {columns[column].name}
+                        <div className="d-flex bd-highlight">
+                            {columns[column].name}
+                            <button className="page-link">
+                                {columns[column].path ===
+                                    checkItem(selectedSort.path) && (
+                                    <Caret onCaret={caret} />
+                                )}
+                            </button>
+                        </div>
                     </th>
                 ))}
-
-                {/* <th scope="col">Качества</th>
-                <th onClick={() => handleSort("profession.name")} scope="col">
-                    Профессия
-                </th>
-                <th onClick={() => handleSort("completedMeetings")} scope="col">
-                    Встретился (раз)
-                </th>
-                <th onClick={() => handleSort("rate")} scope="col">
-                    Оценка
-                </th>
-                <th onClick={() => handleSort("bookmark")} scope="col">
-                    Закладки
-                </th>
-                <th />
-                <th scope="col">Удалить</th> */}
             </tr>
         </thead>
     );
@@ -57,7 +58,8 @@ TableHeader.propTypes = {
     selectedSort: PropTypes.object.isRequired,
     columns: PropTypes.object.isRequired,
     onSort: PropTypes.func.isRequired,
-    data: PropTypes.array
+    data: PropTypes.array,
+    handleChangeCaret: PropTypes.func
 };
 
 export default TableHeader;
