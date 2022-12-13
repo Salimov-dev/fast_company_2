@@ -4,12 +4,15 @@ import App from "./app";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <React.Fragment>
-        <App />
-    </React.Fragment>
+    <BrowserRouter>
+        <React.Fragment>
+            <App />
+        </React.Fragment>
+    </BrowserRouter>
 );
 
 reportWebVitals();
