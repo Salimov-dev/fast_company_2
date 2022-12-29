@@ -25,8 +25,8 @@ const TableHeader = ({ onSort, selectedSort, columns, data }) => {
     };
 
     return (
-        <thead className="table-dark">
-            <tr className="renderPhrase">
+        <thead className="table">
+           <tr className="renderPhrase">
                 {Object.keys(columns).map((column) => (
                     <th
                         key={column}
