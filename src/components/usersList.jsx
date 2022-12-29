@@ -105,6 +105,7 @@ const UsersList = () => {
                             onToggleBookMark={handleToggleBookMark}
                             onSort={handleSort}
                             selectedSort={sortBy}
+                            sortedUsers={sortedUsers}
                         />
                     )}
                     <div className="d-flex justify-content-center">

@@ -10,10 +10,10 @@ const UserTable = ({
     onSort,
     selectedSort,
     onToggleBookMark,
-    onDelete
+    onDelete,
+    sortedUsers
 }) => {
     const columns = {
-        // name: { path: "name", name: "Имя" },
         name: {
             path: "name",
             name: "Имя",
@@ -58,6 +58,7 @@ const UserTable = ({
             selectedSort={selectedSort}
             columns={columns}
             data={users}
+            sortedUsers={sortedUsers}
         />
     );
 };
@@ -69,7 +70,8 @@ UserTable.propTypes = {
     onSort: PropTypes.func.isRequired,
     onToggleBookMark: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
-    data: PropTypes.array
+    data: PropTypes.array,
+    sortedUsers: PropTypes.array
 };
 
 export default UserTable;
