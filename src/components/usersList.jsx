@@ -117,20 +117,17 @@ const UsersList = () => {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        {searchedUsers.length > 0 ? (
-                            <UserTable
-                                users={userCrop}
-                                onDelete={handleDelete}
-                                onToggleBookMark={handleToggleBookMark}
-                                onSort={handleSort}
-                                selectedSort={sortBy}
-                                sortedUsers={sortedUsers}
-                            />
-                        ) : (
-                            <div className="container-fluid">
-                                <h2>Пользователи не найдены</h2>
-                            </div>
-                        )}
+                        { searchedUsers.length > 0
+                        ? <UserTable
+                            users={userCrop}
+                            onDelete={handleDelete}
+                            onToggleBookMark={handleToggleBookMark}
+                            onSort={handleSort}
+                            selectedSort={sortBy}
+                            sortedUsers={sortedUsers}
+                        />
+                        : <div className="container-fluid"><h2>Пользователи не найдены</h2></div>
+                    }
                     </div>
                     {searchedUsers.length > pageSize && (
                         <div className="d-flex justify-content-center">
