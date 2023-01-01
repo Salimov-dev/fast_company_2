@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Pagination from "./pagination";
 import { paginate } from "../utils/paginate";
 import PropTypes from "prop-types";
@@ -54,27 +54,36 @@ const UsersList = () => {
         setSortBy(item);
     };
 
-    if (users) {
-        const filteredUsers = selectedProf
-            ? users.filter(
-                  (user) =>
-                      JSON.stringify(user.profession) ===
-                      JSON.stringify(selectedProf)
-              )
-            : users;
+    const filteredUsers = selectedProf
+        ? users.filter(
+              (user) =>
+                  JSON.stringify(user.profession) ===
+                  JSON.stringify(selectedProf)
+          )
+        : users;
 
-        const count = filteredUsers.length;
-        const sortedUsers = _.orderBy(
-            filteredUsers,
-            [sortBy.path],
-            [sortBy.order]
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
+
+    // --- ПОИСК begin --- //
+    const [searchQuery, setSearchQuery] = useState("");
+    const searchedUsers = useMemo(() => {
+        return sortedUsers.filter((user) =>
+            user.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
+    }, [searchQuery, sortedUsers]);
 
-        const userCrop = paginate(sortedUsers, currentPage, pageSize);
-        const clearFilter = () => {
-            setSelectedProf();
-        };
+    useEffect(() => {
+        setSearchQuery("");
+    }, [selectedProf]);
+    // --- ПОИСК end --- //
+    // console.log("selectedProf", selectedProf);
 
+    const userCrop = paginate(searchedUsers, currentPage, pageSize);
+    const clearFilter = () => {
+        setSelectedProf();
+    };
+
+    if (users) {
         if (userCrop.length === 0 && currentPage > 1) {
             setCurrentPage(currentPage - 1);
         }
@@ -96,10 +105,20 @@ const UsersList = () => {
                         </button>
                     </div>
                 )}
-                <div className="d-flex flex-column">
-                    <SearchStatus length={count} />
-                    {count > 0 && (
-                        <UserTable
+                <div className="d-flex flex-column container-fluid">
+                    <SearchStatus length={searchedUsers.length} />
+                    <div className="input-group mb-3 ">
+                        <input
+                            type="text"
+                            className="form-control mb-3"
+                            placeholder="Search..."
+                            aria-label="Sizing example input"
+                            aria-describedby="inputGroup-sizing-default"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        { searchedUsers.length > 0
+                        ? <UserTable
                             users={userCrop}
                             onDelete={handleDelete}
                             onToggleBookMark={handleToggleBookMark}
@@ -107,17 +126,21 @@ const UsersList = () => {
                             selectedSort={sortBy}
                             sortedUsers={sortedUsers}
                         />
-                    )}
-                    <div className="d-flex justify-content-center">
-                        <Pagination
-                            itemsCount={count}
-                            pageSize={pageSize}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                            onPageChange={handlePageChange}
-                            count={count}
-                        />
+                        : <div className="container-fluid"><h2>Пользователи не найдены</h2></div>
+                    }
                     </div>
+                    {searchedUsers.length > pageSize && (
+                        <div className="d-flex justify-content-center">
+                            <Pagination
+                                itemsCount={searchedUsers.length}
+                                pageSize={pageSize}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}
+                                onPageChange={handlePageChange}
+                                count={searchedUsers.length}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         );
