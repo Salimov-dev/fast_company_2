@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Caret from "./caret";
+import Caret from "../caret";
 
 const TableHeader = ({ onSort, selectedSort, columns, data }) => {
     const [caret, setCaret] = useState(false);
@@ -26,7 +26,7 @@ const TableHeader = ({ onSort, selectedSort, columns, data }) => {
 
     return (
         <thead className="table">
-           <tr className="renderPhrase">
+            <tr className="renderPhrase">
                 {Object.keys(columns).map((column) => (
                     <th
                         key={column}

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
-import Pagination from "./pagination";
-import { paginate } from "../utils/paginate";
+import Pagination from "../../common/pagination";
+import { paginate } from "../../../utils/paginate";
 import PropTypes from "prop-types";
-import GroupList from "./groupList";
-import api from "../api";
-import SearchStatus from "./searchStatus";
-import UserTable from "./usersTable";
+import GroupList from "../../common/groupList";
+import api from "../../../api";
+import SearchStatus from "../../UI/searchStatus";
+import UserTable from "../../UI/usersTable";
 import _ from "lodash";
 
-const UsersList = () => {
+const UsersListPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
@@ -117,17 +117,20 @@ const UsersList = () => {
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
-                        { searchedUsers.length > 0
-                        ? <UserTable
+                        {(searchedUsers.length > 0)
+                        ? (<UserTable
                             users={userCrop}
                             onDelete={handleDelete}
                             onToggleBookMark={handleToggleBookMark}
                             onSort={handleSort}
                             selectedSort={sortBy}
                             sortedUsers={sortedUsers}
-                        />
-                        : <div className="container-fluid"><h2>Пользователи не найдены</h2></div>
-                    }
+                            />)
+                        : (
+                            <div className="container-fluid">
+                                <h2>Пользователи не найдены</h2>
+                            </div>
+                        )}
                     </div>
                     {searchedUsers.length > pageSize && (
                         <div className="d-flex justify-content-center">
@@ -148,8 +151,8 @@ const UsersList = () => {
     return "loading";
 };
 
-UsersList.propTypes = {
+UsersListPage.propTypes = {
     users: PropTypes.array
 };
 
-export default UsersList;
+export default UsersListPage;
