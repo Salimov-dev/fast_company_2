@@ -18,7 +18,6 @@ module.exports = {
         indent: "off", // Отступ количество пробелов
         // indent: ["error", 4], // Отступ количество пробелов
         semi: [2, "always"], // Точка с запятой в конце строки
-
         // Ошибка при наличии пробела при обозночении функции, уберём её
         "space-before-function-paren": [
             "error",
@@ -27,6 +26,7 @@ module.exports = {
         // "space-before-function-paren": ["error", "never"],
 
         // Использование двойных кавычек
+        "multiline-ternary": ["off"],
         quotes: ["error", "double", { allowTemplateLiterals: true }],
         "react-hooks/rules-of-hooks": "error", // Проверяем правила хуков
         "react-hooks/exhaustive-deps": [
