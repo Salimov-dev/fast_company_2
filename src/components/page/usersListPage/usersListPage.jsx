@@ -64,7 +64,6 @@ const UsersListPage = () => {
 
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
 
-    // --- ПОИСК begin --- //
     const [searchQuery, setSearchQuery] = useState("");
     const searchedUsers = useMemo(() => {
         return sortedUsers.filter((user) =>
@@ -75,8 +74,6 @@ const UsersListPage = () => {
     useEffect(() => {
         setSearchQuery("");
     }, [selectedProf]);
-    // --- ПОИСК end --- //
-    // console.log("selectedProf", selectedProf);
 
     const userCrop = paginate(searchedUsers, currentPage, pageSize);
     const clearFilter = () => {
